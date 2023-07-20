@@ -10,7 +10,14 @@
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "commander": "^11.0.0",
+    "uuid": "^9.0.0"
+  },
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "nodemonConfig": {
+    "delay": 2500
   }
 }
