@@ -1,9 +1,40 @@
-const listContacts = require('./contacts');
-const getContactById = require('./contacts');
-const removeContact = require('./contacts');
-const addContact = require('./contacts');
+// const yargs = require('yargs/yargs');
+const { program } = require('commander');
 
-// listContacts.listContacts();
-// getContactById.getContactById('C9sjBfCo4UJCWjzBnOtxl');
-// removeContact.removeContact('C9sjBfCo4UJCWjzBnOtxl');
-addContact.addContact('Simon Morton', 'dui.Fusce.diam@Donec.com', '(233) 738-2360');
+const { listContacts, getContactById, removeContact, addContact } = require('./contacts');
+
+program
+  .option('-a, --action <type>', 'choose action')
+  .option('-i, --id <type>', 'user id')
+  .option('-n, --name <type>', 'user name')
+  .option('-e, --email <type>', 'user email')
+  .option('-p, --phone <type>', 'user phone');
+
+program.parse();
+
+const options = program.opts();
+
+function invokeAction({ action, id, name, email, phone }) {
+  switch (action) {
+    case 'list':
+      listContacts();
+      break;
+
+    case 'get':
+      getContactById(id);
+      break;
+
+    case 'add':
+      addContact(name, email, phone);
+      break;
+
+    case 'remove':
+      removeContact(id);
+      break;
+
+    default:
+      console.warn('\x1B[31m Unknown action type!\x1B[0m');
+  }
+}
+
+invokeAction(options);
