@@ -14,14 +14,16 @@ program.parse();
 
 const options = program.opts();
 
-function invokeAction({ action, id, name, email, phone }) {
+async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case 'list':
-      listContacts();
+      const parsedData = await listContacts();
+      console.table(parsedData);
       break;
 
     case 'get':
-      getContactById(id);
+      const getContact = await getContactById(id);
+      console.log(getContact);
       break;
 
     case 'add':
