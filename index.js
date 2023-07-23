@@ -1,4 +1,3 @@
-// const yargs = require('yargs/yargs');
 const { program } = require('commander');
 
 const { listContacts, getContactById, removeContact, addContact } = require('./contacts');
@@ -17,8 +16,8 @@ const options = program.opts();
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case 'list':
-      const parsedData = await listContacts();
-      console.table(parsedData);
+      const selectContacts = await listContacts();
+      console.table(selectContacts);
       break;
 
     case 'get':
@@ -27,11 +26,13 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case 'add':
-      addContact(name, email, phone);
+      const pushContact = await addContact(name, email, phone);
+      console.log(pushContact);
       break;
 
     case 'remove':
-      removeContact(id);
+      const deleteContact = await removeContact(id);
+      console.log(deleteContact);
       break;
 
     default:
